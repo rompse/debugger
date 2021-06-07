@@ -1,6 +1,6 @@
 # nmake -f Makefile-win64 from within "x64 Native Tools Command Prompt"
 
-TARGETS_ALL = helloworld_x64-windows.exe exitcode_x64-windows.exe helloworld_loop_x64-windows.exe helloworld_thread_x64-windows.exe helloworld_func_x64-windows.exe helloworld_pie_x64-windows.exe helloworld_loop_pie_x64-windows.exe helloworld_thread_pie_x64-windows.exe helloworld_func_pie_x64-windows.exe asmtest_x64-windows.exe hh1.exe do_exception_pie_x64-windows.exe hello_x64-windows.exe indirect_calls_x64-windows.exe missing_switch_case_x64-windows.exe cat_x64-windows.exe
+TARGETS_ALL = helloworld_x64-windows.exe exitcode_x64-windows.exe helloworld_loop_x64-windows.exe helloworld_thread_x64-windows.exe helloworld_func_x64-windows.exe helloworld_pie_x64-windows.exe helloworld_loop_pie_x64-windows.exe helloworld_thread_pie_x64-windows.exe helloworld_recursion_x64-windows.exe helloworld_func_pie_x64-windows.exe asmtest_x64-windows.exe hh1.exe do_exception_pie_x64-windows.exe hello_x64-windows.exe indirect_calls_x64-windows.exe missing_switch_case_x64-windows.exe cat_x64-windows.exe
 
 all: $(TARGETS_ALL)
 
@@ -36,6 +36,9 @@ helloworld_loop_pie_x64-windows.exe: helloworld_loop.c
 
 helloworld_func_pie_x64-windows.exe: helloworld_func.c
 	cl helloworld_func.c /Fe:helloworld_func_pie_x64-windows.exe /link
+
+helloworld_recursion_x64-windows.exe: helloworld_recursion.c
+	cl helloworld_recursion.c /Fe:helloworld_recursion_x64-windows.exe /link
 
 do_exception_pie_x64-windows.exe: do_exception.c
 	cl do_exception.c -DARCH_IS_X64 /Fe:do_exception_pie_x64-windows.exe /link

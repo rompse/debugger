@@ -21,8 +21,8 @@ GCC_64 = $(NDK)/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/
 AS_64 = $(NDK)/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-as
 LD_64 = $(NDK)/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-ld
 
-TARGETS_ARMV7 = helloworld_pie_armv7-android helloworld_loop_pie_armv7-android helloworld_thread_pie_armv7-android do_exception_pie_armv7-android asmtest_armv7-android
-TARGETS_AARCH64 = helloworld_pie_aarch64-android helloworld_loop_pie_aarch64-android helloworld_thread_pie_aarch64-android do_exception_pie_aarch64-android asmtest_aarch64-android
+TARGETS_ARMV7 = helloworld_pie_armv7-android helloworld_loop_pie_armv7-android helloworld_thread_pie_armv7-android helloworld_recursion_pie_armv7-android do_exception_pie_armv7-android asmtest_armv7-android
+TARGETS_AARCH64 = helloworld_pie_aarch64-android helloworld_loop_pie_aarch64-android helloworld_thread_pie_aarch64-android helloworld_recursion_pie_aarch64-android do_exception_pie_aarch64-android asmtest_aarch64-android
 TARGETS_ALL = $(TARGETS_ARMV7) $(TARGETS_AARCH64)
 
 # first target is default target when no target specified
@@ -50,6 +50,9 @@ helloworld_loop_pie_armv7-android: helloworld_loop.c
 helloworld_thread_pie_armv7-android: helloworld_thread.c
 	$(GCC) -march=armv7-a --sysroot=$(SYSR) -pie -DOS_IS_ANDROID -DARCH_IS_ARMV7 -std=c11 helloworld_thread.c -o helloworld_thread_pie_armv7-android
 
+helloworld_recursion_pie_armv7-android: helloworld_recursion.c
+	$(GCC) -march=armv7-a --sysroot=$(SYSR) -pie -DOS_IS_ANDROID -DARCH_IS_ARMV7 -std=c11 helloworld_recursion.c -o helloworld_recursion_pie_armv7-android
+
 do_exception_pie_armv7-android: do_exception.c
 	$(GCC) -march=armv7-a --sysroot=$(SYSR) -pie -DOS_IS_ANDROID -DARCH_IS_ARMV7 -std=c11 do_exception.c -o do_exception_pie_armv7-android
 
@@ -70,6 +73,9 @@ helloworld_loop_pie_aarch64-android: helloworld_loop.c
 
 helloworld_thread_pie_aarch64-android: helloworld_thread.c
 	$(GCC_64) --sysroot=$(SYSR_64) -pie -DOS_IS_ANDROID -DARCH_IS_AARCH64 -std=c11 helloworld_thread.c -o helloworld_thread_pie_aarch64-android
+
+helloworld_recursion_pie_aarch64-android: helloworld_recursion.c
+	$(GCC_64) --sysroot=$(SYSR_64) -pie -DOS_IS_ANDROID -DARCH_IS_AARCH64 -std=c11 helloworld_recursion.c -o helloworld_recursion_pie_aarch64-android
 
 do_exception_pie_aarch64-android: do_exception.c
 	$(GCC_64) --sysroot=$(SYSR_64) -pie -DOS_IS_ANDROID -DARCH_IS_AARCH64 -std=c11 do_exception.c -o do_exception_pie_aarch64-android
