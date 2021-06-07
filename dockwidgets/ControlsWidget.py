@@ -77,6 +77,8 @@ class DebugControlsWidget(QToolBar):
 		self.actionResume.triggered.connect(lambda: self.perform_resume())
 		self.actionResume.setIcon(load_icon('resume.svg'))
 
+		self.actionRunToHere = QAction("Run To Here", self)
+
 		self.actionStepIntoAsm = QAction("Step Into (Assembly)", self)
 		self.actionStepIntoAsm.triggered.connect(lambda: self.perform_step_into_asm())
 		self.actionStepIntoAsm.setIcon(load_icon('stepinto.svg'))
@@ -455,6 +457,7 @@ class DebugControlsWidget(QToolBar):
 			self.actionDetach.setEnabled(e)
 
 		def enable_stepping(e):
+			self.actionRunToHere.setEnabled(e)
 			self.actionStepIntoAsm.setEnabled(e)
 			self.actionStepIntoIL.setEnabled(e)
 			self.actionStepOverAsm.setEnabled(e)

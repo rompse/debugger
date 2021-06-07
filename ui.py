@@ -462,6 +462,14 @@ def cb_bp_toggle(bv, address):
 def valid_bp_toggle(bv, address):
 	return True
 
+def cb_control_run_to_here(bv, address):
+	debug_state = binjaplug.get_state(bv)
+	debug_state.step_to([address])
+
+def valid_control_run_to_here(bv, address):
+	debug_state = binjaplug.get_state(bv)
+	return debug_state.ui.debug_view is not None and debug_state.ui.debug_view.controls.actionRunToHere.isEnabled()
+
 #------------------------------------------------------------------------------
 # Plugin actions for the various debugger controls
 #------------------------------------------------------------------------------
@@ -627,6 +635,7 @@ def initialize_ui():
 	PluginCommand.register("Debugger\\Process\\Settings", "Open adapter settings menu", cb_process_settings, is_valid=valid_process_settings)
 	PluginCommand.register("Debugger\\Control\\Pause", "Pause execution", cb_control_pause, is_valid=valid_control_pause)
 	PluginCommand.register("Debugger\\Control\\Resume", "Resume execution", cb_control_resume, is_valid=valid_control_resume)
+	PluginCommand.register_for_address("Debugger\\Control\\Run To Here", "Step until right-clicked address", cb_control_run_to_here, is_valid=valid_control_run_to_here)
 	PluginCommand.register("Debugger\\Control\\Step Into (Assembly)", "Step into assembly", cb_control_step_into_asm, is_valid=valid_control_step_into_asm)
 	PluginCommand.register("Debugger\\Control\\Step Into (IL)", "Step into IL", cb_control_step_into_il, is_valid=valid_control_step_into_il)
 	PluginCommand.register("Debugger\\Control\\Step Over (Assembly)", "Step over function call", cb_control_step_over_asm, is_valid=valid_control_step_over_asm)
