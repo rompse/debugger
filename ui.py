@@ -464,7 +464,18 @@ def valid_bp_toggle(bv, address):
 
 def cb_control_run_to_here(bv, address):
 	debug_state = binjaplug.get_state(bv)
-	debug_state.step_to([address])
+
+	is_absolute_address = False
+	if bv == debug_state.memory_view or bv.parent_view == debug_state.memory_view:
+		is_absolute_address = True
+
+	if is_absolute_address:
+		debug_state.step_to(address)
+	else:
+		offset = address - bv.start
+		info = {'module': bv.file.original_filename, 'offset': offset}
+		absolute_address = debug_state.breakpoints.state.modules.relative_addr_to_absolute(info)
+		debug_state.step_to(absolute_address)
 
 def valid_control_run_to_here(bv, address):
 	debug_state = binjaplug.get_state(bv)

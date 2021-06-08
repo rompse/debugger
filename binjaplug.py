@@ -818,7 +818,7 @@ class DebuggerState:
 			# Clear the breakpoint and step once (past the breakpoint)
 			# Then re-set it in case we loop and hit it again
 			seq.append((self.adapter.breakpoint_clear, (remote_rip,)))
-			seq.append((self.adapter.step_into, ()))
+			seq.append((self.adapter.step_over, ()))
 			seq.append((self.adapter.breakpoint_set, (remote_rip,)))
 			seq.append((self.adapter.go, ()))
 		else:
