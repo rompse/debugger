@@ -470,13 +470,20 @@ def cb_control_run_to_here(bv, address):
 		is_absolute_address = True
 
 	if is_absolute_address:
+		if not debug_state.breakpoints.contains_absolute(address):
+			debug_state.breakpoints.add_absolute(address)
+			debug_state.ui.update_breakpoints()
 		debug_state.step_to(address)
 	else:
 		offset = address - bv.start
 		info = {'module': bv.file.original_filename, 'offset': offset}
 		absolute_address = debug_state.breakpoints.state.modules.relative_addr_to_absolute(info)
+		if not debug_state.breakpoints.contains_offset(bv.file.original_filename, offset):
+			debug_state.breakpoints.add_offset(bv.file.original_filename, offset)
+			debug_state.ui.breakpoint_tag_add(address)
+			debug_state.ui.update_breakpoints()
 		debug_state.step_to(absolute_address)
-
+		
 def valid_control_run_to_here(bv, address):
 	debug_state = binjaplug.get_state(bv)
 	return debug_state.ui.debug_view is not None and debug_state.ui.debug_view.controls.actionRunToHere.isEnabled()
