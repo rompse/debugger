@@ -167,7 +167,7 @@ class DebugRegistersItemDelegate(QItemDelegate):
 			painter.setPen(binaryninjaui.getThemeColor(ThemeColor.OrangeStandardHighlightColor).rgba())
 		else:
 			painter.setPen(option.palette.color(QPalette.WindowText).rgba())
-		painter.drawText(2 + option.rect.left(), self.char_offset + self.baseline + option.rect.top(), str(text))
+		painter.drawText(option.rect, 0, str(text))
 
 	def setEditorData(self, editor, idx):
 		if idx.column() == 1:

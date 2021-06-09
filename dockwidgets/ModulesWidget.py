@@ -110,7 +110,7 @@ class DebugModulesItemDelegate(QItemDelegate):
 		text = idx.data()
 		painter.setFont(self.font)
 		painter.setPen(option.palette.color(QPalette.WindowText).rgba())
-		painter.drawText(2 + option.rect.left(), self.char_offset + self.baseline + option.rect.top(), str(text))
+		painter.drawText(option.rect, 0, str(text))
 
 
 class DebugModulesWidget(QWidget, DockContextHandler):
