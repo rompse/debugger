@@ -68,7 +68,9 @@ class DebugModulesListModel(QAbstractItemModel):
 			elif self.columns[index.column()] == "Name":
 				text = info['modpath']
 				if '/' in text:
-					text = text[text.rfind('/')+1:]
+					text = text.rsplit('/', 1)[1]
+				elif '\\' in text:
+					text = text.rsplit('\\', 1)[1]
 			elif self.columns[index.column()] == "Full Path":
 				text = info['modpath']
 			else:
